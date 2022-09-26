@@ -1,26 +1,24 @@
 use std::env;
 
-#[derive(Debug)]
-enum Commands {
-    Create,
-    Read,
-    Update,
-    Delete,
-    Unknown
-}
+fn create() { println!("create"); }
+fn read()   { println!("read"); }
+fn update() { println!("update"); }
+fn delete() { println!("delete"); }
+fn unknown() { println!("unknown"); }
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
     // converting String into slice:
     let command = match &args[1][..]{
-        "c" => Commands::Create,
-        "r" => Commands::Read,
-        "u" => Commands::Update,
-        "d" => Commands::Delete,
-        _ => Commands::Unknown,
+        "c" => create(),
+        "r" => read(),
+        "u" => update(),
+        "d" => delete(),
+        _ => unknown(),
     };
 
     // let result = match command { };
 
-    println!("command is : {:#?}",command);
+    // println!("command is : {:#?}",command);
 }
