@@ -1,29 +1,33 @@
 mod actions;
-use std::env;
-use std::result::{Result};
-use std::fmt::{Error};
+mod base;
 
-fn main() -> Result<(), Error> {
+use std::env;
+use actions::{Program};
+
+fn main(){
+
+    let mut program = Program::new();
+    program.init_table();
+
     let args: Vec<String> = env::args().collect();
     let vars;
     
     //TODO: I need proper error checking here
-    // if args.len() >2 {
-    //     vars = args[2..].join(" ");
-    // } else {
-    //     vars = String::from("");
-    // }
-
-    let vars = &args[2..].join(" ").chain_err(|| "problems");
-    // converting String into slice:
-    match &args[1][..]{
-        "-c" => actions::create(vars),
-        "-r" => actions::read(vars),
-        "-u" => actions::update(vars),
-        "-d" => actions::delete(vars),
-        "-a" => actions::all(vars),
-        "-h" => actions::help(),
-        _ => actions::unknown(),
+    // if let Some(&args[2..]) = &args[2..].join(" ");
+    if args.len() > 2 {
+        vars = args[2..].join(" ");
+    } else {
+        vars = String::from("").to_owned();
     }
-    Ok(())
+
+    // String into slice:
+    match &args[1][..]{
+        "-c" => program.create(&vars),
+        "-r" => program.read(&vars),
+        "-u" => program.update(&vars),
+        "-d" => program.delete(&vars),
+        "-a" => program.all(&vars),
+        "-h" => program.help(),
+        _ => program.unknown(),
+    }
 }
