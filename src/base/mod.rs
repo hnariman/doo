@@ -13,6 +13,26 @@ pub struct Item {
     pub done: bool
 }
 
+#[derive(Debug,Table)]
+pub struct PrintItem {
+    #[table(title="ID", justify="Justify::Center")]
+    pub id: i32,
+    #[table(title="Note", justify="Justify::Center")]
+    pub note: String,
+    #[table(title="Done", justify="Justify::Center")]
+    pub done: String
+}
+
+impl From<&Item> for PrintItem {
+    fn from(item:&Item) -> PrintItem {
+       PrintItem {
+            id:item.id,
+            note: item.note.clone(),
+            done: if item.done {String::from("[+]")} else { String::from("[]") }
+        }
+    }
+}
+
 // #[derive(Debug, Default)]
 pub struct Storage {
     connection:Connection,
@@ -67,11 +87,10 @@ impl Storage {
 
     pub fn print_items(&mut self){
         let _ = &mut self.get_all_items();
-        print_stdout(self.items.with_title()).expect("unable to print table");
-        // for item in &self.items {
-        //     let Item{id, note, done} = item;
-        //     println!("{}. {} - {}", id, note, done);
-        // }
+        // here is a tricky convertsion of Map.iter into vec
+        let print_items = self.items.iter().map(|item| PrintItem::from(item)).collect::<Vec<_>>();
+
+        print_stdout(print_items.with_title()).expect("unable to print table");
     }
 }
 
