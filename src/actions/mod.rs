@@ -16,8 +16,11 @@ impl Program {
     }
 
     pub fn create(&mut self, vars: &str) {
-        println!("create : {vars}");
-        self.db.create_item(vars)
+        // println!("create : {vars}");
+        match vars.len() > 0 {
+            true => self.db.create_item(vars),
+            false => println!("creating empty string doesn't make sence though...")
+        }
     }
 
     pub fn read(&self, vars: &str) {
@@ -29,12 +32,12 @@ impl Program {
     }
 
     pub fn delete(&mut self, vars: &str) {
+        // println!("delete : {vars}");
         self.db.delete_item(vars);
-        println!("delete : {vars}");
     }
 
-    pub fn all(&mut self, vars: &str) {
-        println!("get all : {vars}");
+    pub fn all(&mut self) {
+        // println!("get all : {vars}");
         self.db.print_items();
     }
 

@@ -30,7 +30,7 @@ fn main() {
             "-r" => program.read(&vars),
             "-u" => program.update(&vars),
             "-d" => program.delete(&vars),
-            "-a" => program.all(&vars),
+            "-a" => program.all(),
             "-h" => program.help(),
             _ => program.unknown(),
         }
