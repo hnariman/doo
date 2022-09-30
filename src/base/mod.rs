@@ -1,15 +1,12 @@
 // imports 
-use rusqlite::{Connection, params, Result, Error};
+use rusqlite::{Connection, params};
 use cli_table::{format::Justify, print_stdout, Table, WithTitle};
 
 // structs
 #[derive(Debug, Default, Table)]
 pub struct Item {
-    #[table(title="ID", justify="Justify::Center")]
     pub id: i32,
-    #[table(title="Note", justify="Justify::Center")]
     pub note: String,
-    #[table(title="Done", justify="Justify::Center")]
     pub done: bool
 }
 
@@ -17,7 +14,7 @@ pub struct Item {
 pub struct PrintItem {
     #[table(title="ID", justify="Justify::Center")]
     pub id: i32,
-    #[table(title="Note", justify="Justify::Center")]
+    #[table(title="Note", justify="Justify::Left")]
     pub note: String,
     #[table(title="Done", justify="Justify::Center")]
     pub done: String
@@ -49,6 +46,8 @@ const CREATE_TODO: &str=
 )";
 const INSERT_TODO: &str = "INSERT INTO todo (note, done) VALUES (?1, ?2)";
 const SELECT_TODO: &str = "SELECT id, note, done FROM todo";
+const DELETE_TODO: &str = "DELETE FROM todo WHERE id = ?";
+
 
 impl Storage {
     pub fn new(name:&str) -> Self {
@@ -91,7 +90,6 @@ impl Storage {
     }
 
     pub fn delete_item(&self, id:&str) {
-        const DELETE_TODO: &str = "delete from todo where id = ?";
         self.connection.execute(DELETE_TODO,params![id]).unwrap();
     }
 

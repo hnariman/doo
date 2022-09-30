@@ -19,11 +19,12 @@ fn main() {
         vars = String::from("").to_owned();
     }
 
-    if &args.len() < &1 {
+    if &args.len() < &2 {
         program.help();
         return;
     }
-    if &args.len() > &0 {
+
+    if &args.len() > &1 {
         match &args[1][..] {
             "-c" => program.create(&vars),
             "-r" => program.read(&vars),
