@@ -89,6 +89,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "doo"
+version = "0.1.0"
+dependencies = [
+ "cli-table",
+ "rusqlite",
+]
+
+[[package]]
 name = "fallible-iterator"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -250,14 +258,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bab24d30b911b2376f3a13cc2cd443142f0c81dda04c118693e35b3835757755"
 dependencies = [
  "winapi-util",
-]
-
-[[package]]
-name = "test-cli-manual"
-version = "0.1.0"
-dependencies = [
- "cli-table",
- "rusqlite",
 ]
 
 [[package]]
