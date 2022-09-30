@@ -20,7 +20,7 @@ fn main() {
     }
 
     if &args.len() < &2 {
-        program.help();
+        program.all();
         return;
     }
 
