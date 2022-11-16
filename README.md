@@ -1,3 +1,5 @@
+Brief take on cli task manager application with support for sqlite & simple CRUD operations
+
 # doo
 
 # About
